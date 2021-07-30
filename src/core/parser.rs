@@ -1,7 +1,7 @@
 use super::parser_state::ParserState;
 
 pub struct Parser {
-    parser_fn: Box<dyn Fn(ParserState) -> ParserState>,
+    pub parser_fn: Box<dyn Fn(ParserState) -> ParserState>,
 }
 
 // TODO: create a parser struct with map() map_err()

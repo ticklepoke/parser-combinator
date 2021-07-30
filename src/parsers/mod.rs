@@ -37,12 +37,12 @@ pub fn digit() -> Parser {
 
 #[cfg(test)]
 mod string_tests {
-    use crate::core::parser_state::ParserState;
+    use crate::{core::parser_state::ParserState, parsers::string};
 
     #[test]
     fn it_should_match() {
         assert_eq!(
-            crate::string("abc").run("abc"),
+            string("abc").run("abc"),
             ParserState {
                 target: "abc".to_owned(),
                 index: 3,
@@ -54,7 +54,7 @@ mod string_tests {
     #[test]
     fn it_should_match_partially() {
         assert_eq!(
-            crate::string("abc").run("abcdef"),
+            string("abc").run("abcdef"),
             ParserState {
                 target: "abcdef".to_owned(),
                 index: 3,
@@ -66,7 +66,7 @@ mod string_tests {
     #[test]
     fn it_should_not_match() {
         assert_eq!(
-            crate::string("abcdef").run("abc"),
+            string("abcdef").run("abc"),
             ParserState {
                 target: "abc".to_owned(),
                 index: 0,
