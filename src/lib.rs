@@ -1,16 +1,8 @@
 #![allow(dead_code)]
 
-
 mod core;
 mod effects;
 mod parsers;
-
-fn main() {
-    // let dummy_parser = alt(Vec::from([letters(), digits()]));
-    // let letters_parser = letter();
-    // println!("{:?}", dummy_parser.run("123").result);
-    // println!("{:?}", letters_parser.run("123"));
-}
 
 #[cfg(test)]
 mod string_tests {
