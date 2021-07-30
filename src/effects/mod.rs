@@ -3,7 +3,7 @@ use crate::core::{parser::Parser, parser_state::ParserState};
 pub fn sequence(parsers: Vec<Parser>) -> Parser {
     Parser::new(move |prev_state| {
         if prev_state.result.is_none() {
-            return prev_state.clone();
+            return prev_state;
         }
         let mut results = Vec::new();
         let mut next_state = prev_state.clone();
@@ -12,21 +12,21 @@ pub fn sequence(parsers: Vec<Parser>) -> Parser {
             next_state = (p.parser_fn)(prev_state.clone());
             results.push(next_state.result.unwrap());
         }
-        return ParserState {
+        ParserState {
             result: Some(results.join("")),
             ..next_state
-        };
+        }
     })
 }
 
 pub fn many(parser: Parser) -> Parser {
     Parser::new(move |prev_state| {
         if prev_state.result.is_none() {
-            return prev_state.clone();
+            return prev_state;
         }
         
         let mut results = Vec::new();
-        let mut next_state = prev_state.clone();
+        let mut next_state = prev_state;
         loop {
            let temp_state = (parser.parser_fn)(next_state.clone());
            
@@ -47,7 +47,7 @@ pub fn many(parser: Parser) -> Parser {
 pub fn alt(parsers: Vec<Parser>) -> Parser {
     Parser::new(move |prev_state| {
         if prev_state.result.is_none() {
-            return prev_state.clone();
+            return prev_state;
         }
         
         for p in parsers.iter() {

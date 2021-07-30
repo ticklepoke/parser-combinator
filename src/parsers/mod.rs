@@ -79,11 +79,12 @@ mod string_tests {
 #[cfg(test)]
 mod letters_test {
     use crate::core::parser_state::ParserState;
+    use crate::parsers::letters;
 
     #[test]
     fn it_should_match() {
         assert_eq!(
-            crate::letters().run("abc"),
+            letters().run("abc"),
             ParserState {
                 target: "abc".to_owned(),
                 index: 3,
@@ -95,7 +96,7 @@ mod letters_test {
     #[test]
     fn it_should_match_single() {
         assert_eq!(
-            crate::letters().run("a"),
+            letters().run("a"),
             ParserState {
                 target: "a".to_owned(),
                 index: 1,
@@ -107,7 +108,7 @@ mod letters_test {
     #[test]
     fn it_should_match_first() {
         assert_eq!(
-            crate::letters().run("a1bc"),
+            letters().run("a1bc"),
             ParserState {
                 target: "a1bc".to_owned(),
                 index: 1,
@@ -119,7 +120,7 @@ mod letters_test {
     #[test]
     fn it_should_not_match() {
         assert_eq!(
-            crate::letters().run("123"),
+            letters().run("123"),
             ParserState {
                 target: "123".to_owned(),
                 index: 0,
@@ -132,11 +133,12 @@ mod letters_test {
 #[cfg(test)]
 mod letter_test {
     use crate::core::parser_state::ParserState;
+    use crate::parsers::letter;
 
     #[test]
     fn it_should_match() {
         assert_eq!(
-            crate::letter().run("a"),
+            letter().run("a"),
             ParserState {
                 target: "a".to_owned(),
                 index: 1,
@@ -148,7 +150,7 @@ mod letter_test {
     #[test]
     fn it_should_match_start() {
         assert_eq!(
-            crate::letter().run("abc"),
+            letter().run("abc"),
             ParserState {
                 target: "abc".to_owned(),
                 index: 1,
@@ -160,7 +162,7 @@ mod letter_test {
     #[test]
     fn it_should_not_match() {
         assert_eq!(
-            crate::letter().run("123"),
+            letter().run("123"),
             ParserState {
                 target: "123".to_owned(),
                 index: 0,

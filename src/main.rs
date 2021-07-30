@@ -1,22 +1,23 @@
-use crate::{
-    effects::{alt, many},
-    parsers::{digit, digits, letter, letters},
-};
+#![allow(dead_code)]
+
 
 mod core;
 mod effects;
 mod parsers;
 
 fn main() {
-    let dummy_parser = alt(Vec::from([letters(), digits()]));
-    let letters_parser = letter();
-    println!("{:?}", dummy_parser.run("123").result);
-    println!("{:?}", letters_parser.run("123"));
+    // let dummy_parser = alt(Vec::from([letters(), digits()]));
+    // let letters_parser = letter();
+    // println!("{:?}", dummy_parser.run("123").result);
+    // println!("{:?}", letters_parser.run("123"));
 }
 
 #[cfg(test)]
 mod string_tests {
-    use crate::{effects::{alt, many, sequence}, parsers::{digit, digits, letter, letters, string}};
+    use crate::{
+        effects::{alt, many, sequence},
+        parsers::{digit, digits, letter, letters, string},
+    };
 
     #[test]
     fn it_parses_strings() {
@@ -58,7 +59,7 @@ mod string_tests {
     fn it_returns_none() {
         let letter_parser = letter();
         assert_eq!(letter_parser.run("123").result, None);
-        
+
         let letters_parser = letters();
         assert_eq!(letters_parser.run("123").result, None);
 
@@ -68,7 +69,7 @@ mod string_tests {
         let digits_parser = digits();
         assert_eq!(digits_parser.run("abc").result, None);
     }
-    
+
     #[test]
     fn it_parses_sequence() {
         let letters_parser = sequence(Vec::from([letters()]));
@@ -76,15 +77,20 @@ mod string_tests {
         assert_eq!(letters_parser.run("abc").result, Some("abc".to_owned()));
 
         let letters_digits = sequence(Vec::from([letters(), digits()]));
-        assert_eq!(letters_digits.run("abc123").result, Some("abc123".to_owned()));
-        
+        assert_eq!(
+            letters_digits.run("abc123").result,
+            Some("abc123".to_owned())
+        );
     }
-    
+
     #[test]
     fn it_parses_alt() {
         let letters_or_digits = alt(Vec::from([letters(), digits()]));
         assert_eq!(letters_or_digits.run("123").result, Some("123".to_owned()));
         assert_eq!(letters_or_digits.run("abc").result, Some("abc".to_owned()));
-        assert_eq!(letters_or_digits.run("abc12").result, Some("abc".to_owned()));
+        assert_eq!(
+            letters_or_digits.run("abc12").result,
+            Some("abc".to_owned())
+        );
     }
 }

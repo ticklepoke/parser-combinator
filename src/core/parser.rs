@@ -23,7 +23,7 @@ impl Parser {
             if next_state.result.is_none() {
                 return next_state;
             }
-            return map_fn(next_state);
+            map_fn(next_state)
         };
         Parser::new(fn_body)
     }
@@ -37,7 +37,7 @@ impl Parser {
             if next_state.result.is_some() {
                 return next_state;
             }
-            return map_err_fn(next_state);
+            map_err_fn(next_state)
         };
         Parser::new(fn_body)
     }
